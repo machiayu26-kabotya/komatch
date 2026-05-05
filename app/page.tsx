@@ -1,12 +1,19 @@
 import { createClient } from "@/lib/supabase/server";
+import { redirect } from "next/navigation";
+import Link from "next/link";
+
+async function logout() {
+  "use server";
+  const supabase = await createClient();
+  await supabase.auth.signOut();
+  redirect("/login");
+}
 
 export default async function Home() {
   const supabase = await createClient();
 
-  // セッションを取得（未ログインなら session=null、エラーにはならない）
   const { data: { session }, error } = await supabase.auth.getSession();
 
-  // 環境変数のチェック
   const hasConfig =
     !!process.env.NEXT_PUBLIC_SUPABASE_URL &&
     !!process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
@@ -42,7 +49,7 @@ export default async function Home() {
             {user ? (
               <span className="text-ink">{user.email}</span>
             ) : (
-              <span>未ログイン (Day 2 で実装します)</span>
+              <span>未ログイン</span>
             )}
           </div>
           {error && (
@@ -52,7 +59,41 @@ export default async function Home() {
           )}
         </div>
 
-        <p className="text-ink-muted text-xs mt-8">Day 1 の動作確認画面 / 開発中</p>
+        {user ? (
+          <div className="mt-6 flex flex-col items-center gap-3">
+            <Link
+              href="/profile"
+              className="text-sm bg-rose text-white px-5 py-2 rounded-full hover:opacity-90 transition"
+            >
+              プロフィール編集
+            </Link>
+            <form action={logout}>
+              <button
+                type="submit"
+                className="text-sm text-ink-muted hover:text-rose transition underline"
+              >
+                ログアウト
+              </button>
+            </form>
+          </div>
+        ) : (
+          <div className="mt-6 flex gap-3 justify-center">
+            <Link
+              href="/login"
+              className="text-sm bg-rose text-white px-5 py-2 rounded-full hover:opacity-90 transition"
+            >
+              ログイン
+            </Link>
+            <Link
+              href="/signup"
+              className="text-sm bg-white border border-rose text-rose px-5 py-2 rounded-full hover:opacity-90 transition"
+            >
+              新規登録
+            </Link>
+          </div>
+        )}
+
+        <p className="text-ink-muted text-xs mt-8">開発中</p>
       </div>
     </main>
   );
