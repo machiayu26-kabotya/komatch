@@ -52,18 +52,20 @@ export default async function Home() {
               <span>未ログイン</span>
             )}
           </div>
-          {error && (
-            <div className="text-hard mt-2 text-xs">
-              エラー: {error.message}
-            </div>
-          )}
         </div>
 
         {user ? (
           <div className="mt-6 flex flex-col items-center gap-3">
             <Link
+              href="/timetable"
+              className="text-sm bg-rose px-5 py-2 rounded-full hover:opacity-90 transition"
+              style={{ color: "white" }}
+            >
+              時間割を見る
+            </Link>
+            <Link
               href="/profile"
-              className="text-sm bg-rose text-white px-5 py-2 rounded-full hover:opacity-90 transition"
+              className="text-sm bg-white border border-rose text-rose px-5 py-2 rounded-full hover:opacity-90 transition"
             >
               プロフィール編集
             </Link>
@@ -80,7 +82,8 @@ export default async function Home() {
           <div className="mt-6 flex gap-3 justify-center">
             <Link
               href="/login"
-              className="text-sm bg-rose text-white px-5 py-2 rounded-full hover:opacity-90 transition"
+              className="text-sm bg-rose px-5 py-2 rounded-full hover:opacity-90 transition"
+              style={{ color: "white" }}
             >
               ログイン
             </Link>
