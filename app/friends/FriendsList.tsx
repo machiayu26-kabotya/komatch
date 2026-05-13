@@ -37,6 +37,17 @@ export default function FriendsList({
           </Link>
         </header>
 
+        {friends.length > 0 && (
+          <Link
+            href="/friends/compare"
+            className="block bg-rose rounded-2xl shadow-soft p-5 mb-6 text-center hover:opacity-90 transition"
+            style={{ color: "white" }}
+          >
+            <div className="text-base font-medium">🔍 共通の空きコマを探す</div>
+            <div className="text-xs opacity-80 mt-1">友達と自分の時間割を重ねて表示</div>
+          </Link>
+        )}
+
         <div className="bg-white rounded-2xl shadow-soft p-6 mb-6">
           <h2 className="text-base font-medium text-ink mb-1">あなたの招待リンク</h2>
           <p className="text-xs text-ink-muted mb-4">
