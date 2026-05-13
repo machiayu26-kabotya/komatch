@@ -11,6 +11,7 @@ async function logout() {
 
 export default async function Home() {
   const supabase = await createClient();
+
   const { data: { session }, error } = await supabase.auth.getSession();
 
   const hasConfig =
@@ -54,28 +55,21 @@ export default async function Home() {
         </div>
 
         {user ? (
-          <div className="mt-6 flex flex-col gap-2">
+          <div className="mt-6 flex flex-col items-center gap-3">
             <Link
               href="/timetable"
-              className="text-sm bg-rose px-5 py-3 rounded-full hover:opacity-90 transition"
+              className="text-sm bg-rose px-5 py-2 rounded-full hover:opacity-90 transition"
               style={{ color: "white" }}
             >
-              📅 時間割
-            </Link>
-            <Link
-              href="/friends"
-              className="text-sm bg-rose px-5 py-3 rounded-full hover:opacity-90 transition"
-              style={{ color: "white" }}
-            >
-              👥 友達
+              時間割を見る
             </Link>
             <Link
               href="/profile"
-              className="text-sm bg-white border border-rose text-rose px-5 py-3 rounded-full hover:opacity-90 transition"
+              className="text-sm bg-white border border-rose text-rose px-5 py-2 rounded-full hover:opacity-90 transition"
             >
               プロフィール編集
             </Link>
-            <form action={logout} className="mt-2">
+            <form action={logout}>
               <button
                 type="submit"
                 className="text-sm text-ink-muted hover:text-rose transition underline"
