@@ -11,7 +11,6 @@ async function logout() {
 
 export default async function Home() {
   const supabase = await createClient();
-
   const { data: { session }, error } = await supabase.auth.getSession();
 
   const hasConfig =
@@ -35,62 +34,40 @@ export default async function Home() {
 
         <div className="bg-cream-deep border border-line rounded-xl p-4 text-left text-sm">
           <div className="flex items-center gap-2 mb-2">
-            <span
-              className={`inline-block w-2 h-2 rounded-full ${
-                connected ? "bg-mint" : "bg-hard"
-              }`}
-            ></span>
-            <span className="font-medium">
-              Supabase: {connected ? "接続OK" : "接続できていません"}
-            </span>
+            <span className={`inline-block w-2 h-2 rounded-full ${connected ? "bg-mint" : "bg-hard"}`}></span>
+            <span className="font-medium">Supabase: {connected ? "接続OK" : "接続できていません"}</span>
           </div>
           <div className="text-ink-muted">
-            ログイン状態:{" "}
-            {user ? (
-              <span className="text-ink">{user.email}</span>
-            ) : (
-              <span>未ログイン</span>
-            )}
+            ログイン状態: {user ? <span className="text-ink">{user.email}</span> : <span>未ログイン</span>}
           </div>
         </div>
 
         {user ? (
-          <div className="mt-6 flex flex-col items-center gap-3">
-            <Link
-              href="/timetable"
-              className="text-sm bg-rose px-5 py-2 rounded-full hover:opacity-90 transition"
-              style={{ color: "white" }}
-            >
-              時間割を見る
+          <div className="mt-6 flex flex-col gap-2">
+            <Link href="/timetable" className="text-sm bg-rose px-5 py-3 rounded-full hover:opacity-90 transition" style={{ color: "white" }}>
+              📅 時間割
             </Link>
-            <Link
-              href="/profile"
-              className="text-sm bg-white border border-rose text-rose px-5 py-2 rounded-full hover:opacity-90 transition"
-            >
+            <Link href="/friends" className="text-sm bg-rose px-5 py-3 rounded-full hover:opacity-90 transition" style={{ color: "white" }}>
+              👥 友達
+            </Link>
+            <Link href="/chats" className="text-sm bg-rose px-5 py-3 rounded-full hover:opacity-90 transition" style={{ color: "white" }}>
+              💬 チャット
+            </Link>
+            <Link href="/profile" className="text-sm bg-white border border-rose text-rose px-5 py-3 rounded-full hover:opacity-90 transition">
               プロフィール編集
             </Link>
-            <form action={logout}>
-              <button
-                type="submit"
-                className="text-sm text-ink-muted hover:text-rose transition underline"
-              >
+            <form action={logout} className="mt-2">
+              <button type="submit" className="text-sm text-ink-muted hover:text-rose transition underline">
                 ログアウト
               </button>
             </form>
           </div>
         ) : (
           <div className="mt-6 flex gap-3 justify-center">
-            <Link
-              href="/login"
-              className="text-sm bg-rose px-5 py-2 rounded-full hover:opacity-90 transition"
-              style={{ color: "white" }}
-            >
+            <Link href="/login" className="text-sm bg-rose px-5 py-2 rounded-full hover:opacity-90 transition" style={{ color: "white" }}>
               ログイン
             </Link>
-            <Link
-              href="/signup"
-              className="text-sm bg-white border border-rose text-rose px-5 py-2 rounded-full hover:opacity-90 transition"
-            >
+            <Link href="/signup" className="text-sm bg-white border border-rose text-rose px-5 py-2 rounded-full hover:opacity-90 transition">
               新規登録
             </Link>
           </div>
